@@ -8,6 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+
+      ./steam/steam.nix
     ];
 
   # give permissions to me on /mnt/NixOS-Jogos1-ssd. otherwise it will be root owned
@@ -31,6 +33,11 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
+  boot.loader.grub.default = "saved";
+  boot.loader.grub.extraEntries = "GRUB_SAVEDEFAULT=true";
+  # boot.loader.grub.theme = "";
+  # boot.loader.grub.efiSupport = true;
+
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -155,11 +162,6 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
 
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  };
 
+  hardware.bluetooth.enable = true;
 }
